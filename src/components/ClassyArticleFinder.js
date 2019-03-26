@@ -9,13 +9,8 @@ class ClassyArticleFinder extends Component{
             searchText: '',
             articleLength: Math.floor(Math.pow(window.innerWidth,1.5)/35)
         }
-
-        //don't forget to bind functions
-        // this.handleInputChange = this.handleInputChange.bind(this)
-        // this.handleResize = this.handleResize.bind(this)
-        // this.handleKeypress = this.handleKeypress.bind(this)
     }
-
+    
     //update article length when screensize changes
     handleResize () {
         const newLength = Math.floor(Math.pow(window.innerWidth,1.5)/35)
@@ -92,3 +87,24 @@ class ClassyArticleFinder extends Component{
 }
 
 export default ClassyArticleFinder;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//don't forget to bind functions
+        // this.handleInputChange = this.handleInputChange.bind(this)
+        // this.handleResize = this.handleResize.bind(this)
+        // this.handleKeypress = this.handleKeypress.bind(this)
