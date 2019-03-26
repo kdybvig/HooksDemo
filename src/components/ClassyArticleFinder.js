@@ -11,9 +11,9 @@ class ClassyArticleFinder extends Component{
         }
 
         //don't forget to bind functions
-        this.handleInputChange = this.handleInputChange.bind(this)
-        this.handleResize = this.handleResize.bind(this)
-        this.handleKeypress = this.handleKeypress.bind(this)
+        // this.handleInputChange = this.handleInputChange.bind(this)
+        // this.handleResize = this.handleResize.bind(this)
+        // this.handleKeypress = this.handleKeypress.bind(this)
     }
 
     //update article length when screensize changes
@@ -50,7 +50,6 @@ class ClassyArticleFinder extends Component{
     }
 
     // remove event listeners when component unmounts
-
     componentWillUnmount() {
         window.removeEventListener('resize', this.handleResize)
         window.removeEventListener('keydown', this.handleKeypress)

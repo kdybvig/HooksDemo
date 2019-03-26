@@ -8,7 +8,6 @@ const ArticleFinder = ({closeFinder}) => {
     const [articleLength, setArticleLength] = useState(initialLength)
 
     //update article length when screensize changes
-    
     useEffect(() => {
         function handleResize () {
             const newLength = Math.floor(Math.pow(window.innerWidth,1.5)/35)
@@ -22,7 +21,6 @@ const ArticleFinder = ({closeFinder}) => {
     },[])
 
     //close form when escape key is pressed
-
     useEffect(()=> {
         function handleKeypress(e) {
             if(e.key === 'Escape') closeFinder()
@@ -35,7 +33,6 @@ const ArticleFinder = ({closeFinder}) => {
     }, [])
 
     //fetch articles from server whenever search text changes
-
     useEffect(() => {
         async function updateArticles () {
             const newArticles = await fetchArticles(searchText) 
