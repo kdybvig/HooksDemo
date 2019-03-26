@@ -1,28 +1,33 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import ArticleFinder from './components/ClassyArticleFinder';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+const App = () => {
+
+  const [isOpen, setIsOpen] = useState(false)
+
+  
+
+  return (
+    <div className="App">
+    {
+      isOpen ? 
+        <ArticleFinder closeFinder={() => setIsOpen(false)}/> : 
+        <div>
+          <h1>Article Finding Application Homepage</h1>
+          <button 
+            style={{
+              backgroundColor: 'blue', 
+              color: 'white', 
+              fontSize: 25, 
+              padding: '25px'}}
+            onClick={()=>setIsOpen(true)}>
+            Open Article Finder
+          </button>
+        </div>
+    }
+    </div>
+  )
 }
 
 export default App;
