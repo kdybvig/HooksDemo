@@ -2,9 +2,7 @@ import {useEffect} from 'react'
 
 function useOnKeyPress(chosenKey, callback) {
     const handleKeyPress = (e) => {
-        if(e.key === chosenKey) {
-            callback()
-        }
+        if(e.key === chosenKey) callback()
     }
     useEffect(()=> {
         window.addEventListener('keydown', handleKeyPress)
