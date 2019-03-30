@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import ArticleFinder from './components/ArticleFinderHOCs';
+import ArticleFinder from './components/ArticleFinderCustomHooks';
 
 const App = () => {
 
@@ -8,26 +8,20 @@ const App = () => {
 
   
 
-  return (
-    <div className="App">
-    {
-      isOpen ? 
-        <ArticleFinder closeFinder={() => setIsOpen(false)}/> : 
-        <div>
-          <h1>Article Finding Application Homepage</h1>
-          <button 
-            style={{
-              backgroundColor: 'blue', 
-              color: 'white', 
-              fontSize: 25, 
-              padding: '25px'}}
-            onClick={()=>setIsOpen(true)}>
-            Open Article Finder
-          </button>
-        </div>
-    }
-    </div>
-  )
+  return isOpen ? 
+      <ArticleFinder closeFinder={() => setIsOpen(false)}/> : 
+      <div>
+        <h1>Article Finding Application Homepage</h1>
+        <button 
+          style={{
+            backgroundColor: 'blue', 
+            color: 'white', 
+            fontSize: 25, 
+            padding: '25px'}}
+          onClick={()=>setIsOpen(true)}>
+          Open Article Finder
+        </button>
+      </div>
 }
 
 export default App;

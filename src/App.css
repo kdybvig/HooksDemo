@@ -2,6 +2,11 @@ h1, h3, h5 {
   text-align: center;
 }
 
+input {
+  margin-left: 10px;
+  padding: 4px;
+}
+
 article {
   border: 2px solid black;
   width: 80%;

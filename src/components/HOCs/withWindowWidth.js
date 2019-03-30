@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 function withWindowWidth (WrappedComponent) {
-    return class extends Component {
+    return class WindowWidthObserver extends Component {
 
         state = { 
             width: window.innerWidth

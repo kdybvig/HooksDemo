@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 
 function withOnKeyPress(chosenKey, callback) {
     return (WrappedComponent) => {
-        return class extends Component {
+        return class KeyPressHandler extends Component {
         
             handleKeyPress = this.handleKeyPress.bind(this)
     
