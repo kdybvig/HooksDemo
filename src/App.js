@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import ArticleFinder from './components/ClassyArticleFinder';
+import ArticleFinder from './components/ArticleFinderHOCs';
 
 const App = () => {
 

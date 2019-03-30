@@ -36,10 +36,8 @@ export async function fetchArticles(searchText) {
     if(!searchText) searchText= ''
 
     const regex = new RegExp(searchText, 'i')
-    console.log(regex)
     await delay(200)
     const fetchResult = articles.filter(article => regex.test(article.title)).slice(0,10)
-    console.log('fetch result',fetchResult)
     return fetchResult
 }
 

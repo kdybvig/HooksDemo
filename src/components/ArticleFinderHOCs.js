@@ -1,43 +1,33 @@
 import React, {Component} from 'react'
 import { fetchArticles } from '../articles';
+import {compose} from "recompose";
+import withOnKeyPress from './HOCs/withOnKeyPress';
+import withWindowWidth from './HOCs/withWindowWidth';
 
 class ArticleFinder extends Component{
     constructor(props) {
         super(props)
         this.state = {
             articles: [],
-            searchText: '',
-            articleLength: Math.floor(Math.pow(window.innerWidth,1.5)/35)
+            searchText: ''
         }
-
+        //don't forget to bind functions
+        this.handleInputChange = this.handleInputChange.bind(this)
         this._isMounted = false;
     }
     
-    //update article length when screensize changes
-    handleResize () {
-        const newLength = Math.floor(Math.pow(window.innerWidth,1.5)/35)
-        this.setState({articleLength: newLength})
-    }
-
-    //close form when escape key is pressed
-    handleKeypress(e) {
-        if(e.key === 'Escape') this.props.closeFinder()
-    }
-
-    //fetch articles from server whenever search text changes
+   //fetch articles from server whenever search text changes
     async updateArticles () {
         const newArticles = await fetchArticles(this.state.searchText) 
         if(this._isMounted) this.setState({articles: newArticles})
     }
 
-    //add event listeners for keydown and resize, initial fetch of articles
+    //initial fetch of articles
     componentDidMount() {
-        this._isMounted=true
-        window.addEventListener('resize', this.handleResize)
-        window.addEventListener('keydown', this.handleKeypress)
+        this._isMounted = true
         this.updateArticles()
     }
-    
+
     // update articles when searchText changes
     componentDidUpdate(prevProps, prevState) {
         if(this.state.searchText === prevState.searchText) {
@@ -47,11 +37,9 @@ class ArticleFinder extends Component{
         }
     }
 
-    // remove event listeners when component unmounts and avoid setting state when component is unmounted
+    // avoid setting state when component is unmounted
     componentWillUnmount() {
-        this._isMounted= false
-        window.removeEventListener('resize', this.handleResize)
-        window.removeEventListener('keydown', this.handleKeypress)
+        this._isMounted = false
     }
 
 
@@ -79,7 +67,7 @@ class ArticleFinder extends Component{
                     return (
                         <article key={'article-' + index}>
                             <h1>{article.title}</h1>
-                            <p>{article.body.slice(0, this.state.articleLength) + ' ...'}</p>
+                            <p>{article.body.slice(0, Math.floor(Math.pow(this.props.windowWidth,1.5)/35)) + ' ...'}</p>
                         </article>
                     )
                 }
@@ -90,25 +78,9 @@ class ArticleFinder extends Component{
    
 }
 
-export default ArticleFinder;
+const enhance = compose(
+    withOnKeyPress('Escape', 'closeFinder'),
+    withWindowWidth
+)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//don't forget to bind functions
-        // this.handleInputChange = this.handleInputChange.bind(this)
-        // this.handleResize = this.handleResize.bind(this)
-        // this.handleKeypress = this.handleKeypress.bind(this)
+export default enhance(ArticleFinder);

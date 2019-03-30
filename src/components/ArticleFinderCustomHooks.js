@@ -1,39 +1,22 @@
 import React, {useState, useEffect} from 'react'
 import { fetchArticles } from '../articles';
+import useOnKeyPress from './hooks/useOnKeyPress'
+import useWindowWidth from './hooks/useWindowWidth';
 
 const ArticleFinder = ({closeFinder}) => {
-    const initialLength = Math.floor(Math.pow(window.innerWidth,1.5)/35)
     const [articles, setArticles] = useState([]);
     const [searchText, setSearchText] = useState('');
-    const [articleLength, setArticleLength] = useState(initialLength)
-
+    
     //update article length when screensize changes
-    useEffect(() => {
-        function handleResize () {
-            const newLength = Math.floor(Math.pow(window.innerWidth,1.5)/35)
-            setArticleLength(newLength)
-        }
-        window.addEventListener('resize', handleResize)
-
-        return () => {
-            window.removeEventListener('resize', handleResize)
-        }
-    },[])
+    const windowWidth = useWindowWidth()
+    const articleLength = Math.floor(Math.pow(windowWidth,1.5)/35)
 
     //close form when escape key is pressed
-    useEffect(()=> {
-        function handleKeypress(e) {
-            if(e.key === 'Escape') closeFinder()
-        }
-        window.addEventListener('keydown', handleKeypress)
-
-        return () => {
-            window.removeEventListener('keydown', handleKeypress)
-        }
-    }, [])
+    useOnKeyPress('Escape', closeFinder)
 
     //fetch articles from server whenever search text changes
     let isMounted;
+
     useEffect(() => {
         isMounted = true
         async function updateArticles () {
@@ -41,10 +24,10 @@ const ArticleFinder = ({closeFinder}) => {
             if(isMounted)setArticles(newArticles)
         }
         updateArticles()
-        
-        return () => { 
+
+        return () => {
             //avoid state changes when component is unmounted
-            isMounted = false 
+            isMounted = false
         }
     }, [searchText])
 
