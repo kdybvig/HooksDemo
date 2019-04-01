@@ -1,6 +1,5 @@
 import { LoremIpsum } from "lorem-ipsum";
 import { delay } from "q";
-// const LoremIpsum = require("lorem-ipsum").LoremIpsum;
 
 const lorem = new LoremIpsum({
   sentencesPerParagraph: {
@@ -36,7 +35,7 @@ export async function fetchArticles(searchText) {
     if(!searchText) searchText= ''
 
     const regex = new RegExp(searchText, 'i')
-    await delay(200)
+    await delay(100 + Math.floor(Math.random()*300))
     const fetchResult = articles.filter(article => regex.test(article.title)).slice(0,10)
     return fetchResult
 }
