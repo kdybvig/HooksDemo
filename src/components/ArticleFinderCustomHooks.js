@@ -15,19 +15,18 @@ const ArticleFinder = ({closeFinder}) => {
     useOnKeyPress('Escape', closeFinder)
 
     //fetch articles from server whenever search text changes
-    let isMounted;
-
     useEffect(() => {
-        isMounted = true
+        let didCancel = false
         async function updateArticles () {
             const newArticles = await fetchArticles(searchText) 
-            if(isMounted)setArticles(newArticles)
+            if(didCancel) return
+            setArticles(newArticles)
         }
         updateArticles()
-
-        return () => {
-            //avoid state changes when component is unmounted
-            isMounted = false
+        
+        return () => { 
+            //avoid state changes when component is unmounted or searchText has changed
+            didCancel = true
         }
     }, [searchText])
 
