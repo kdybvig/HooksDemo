@@ -44,6 +44,7 @@ const ArticleFinder = ({closeFinder}) => {
                 value={searchText} 
                 onChange={e=> setSearchText(e.target.value)}/>
             </h3>
+            {!articles.length && <p>No results for {searchText}</p>}
             {articles.map((article, index) => {
                 return (
                     <article key={'article-' + index}>

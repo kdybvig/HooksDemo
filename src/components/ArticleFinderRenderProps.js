@@ -70,6 +70,7 @@ class ArticleFinder extends Component{
                                         value={this.state.searchText} 
                                         onChange={this.handleInputChange}/>
                                 </h3>
+                                {!this.state.articles.length && <p>No results for {this.state.searchText}</p>}
                                 {this.state.articles.map((article, index) => {
                                     return (
                                         <article key={'article-' + index}>
