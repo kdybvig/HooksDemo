@@ -9,7 +9,10 @@ class ArticleFinder extends Component{
             searchText: '',
             articleLength: Math.floor(Math.pow(window.innerWidth,1.5)/35)
         }
-
+        //don't forget to bind functions
+        this.handleInputChange = this.handleInputChange.bind(this)
+        this.handleResize = this.handleResize.bind(this)
+        this.handleKeypress = this.handleKeypress.bind(this)
         this._isMounted = false;
     }
     
@@ -25,9 +28,10 @@ class ArticleFinder extends Component{
     }
 
     //fetch articles from server whenever search text changes
-    async updateArticles () {
+    async fetchNewArticles () {
         const searchText = this.state.searchText  //capture search text before fetching articles
         const newArticles = await fetchArticles(this.state.searchText) 
+        //need to check for equality of searchText to eliminate race condition
         if(this._isMounted && searchText === this.state.searchText) this.setState({articles: newArticles})
     }
 
@@ -36,7 +40,7 @@ class ArticleFinder extends Component{
         this._isMounted=true
         window.addEventListener('resize', this.handleResize)
         window.addEventListener('keydown', this.handleKeypress)
-        this.updateArticles()
+        this.fetchNewArticles()
     }
     
     // update articles when searchText changes
@@ -44,7 +48,7 @@ class ArticleFinder extends Component{
         if(this.state.searchText === prevState.searchText) {
             return
         } else {
-            this.updateArticles()
+            this.fetchNewArticles()
         }
     }
 
@@ -110,7 +114,3 @@ export default ArticleFinder;
 
 
 
-//don't forget to bind functions
-        // this.handleInputChange = this.handleInputChange.bind(this)
-        // this.handleResize = this.handleResize.bind(this)
-        // this.handleKeypress = this.handleKeypress.bind(this)

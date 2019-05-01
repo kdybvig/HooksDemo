@@ -35,12 +35,12 @@ const ArticleFinder = ({closeFinder}) => {
     //fetch articles from server whenever search text changes
     useEffect(() => {
         let didCancel = false
-        async function updateArticles () {
+        async function fetchNewArticles () {
             const newArticles = await fetchArticles(searchText) 
             if(didCancel) return
             setArticles(newArticles)
         }
-        updateArticles()
+        fetchNewArticles()
         
         return () => { 
             //avoid state changes when component is unmounted, and cancel previous fetch calls

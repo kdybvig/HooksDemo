@@ -17,7 +17,7 @@ class ArticleFinder extends Component{
     }
     
    //fetch articles from server whenever search text changes
-    async updateArticles () {
+    async fetchNewArticles () {
         const searchText = this.state.searchText //capture search text before fetching articles
         const newArticles = await fetchArticles(this.state.searchText) 
         if(this._isMounted && searchText === this.state.searchText) this.setState({articles: newArticles})
@@ -26,7 +26,7 @@ class ArticleFinder extends Component{
     //initial fetch of articles
     componentDidMount() {
         this._isMounted = true
-        this.updateArticles()
+        this.fetchNewArticles()
     }
 
     // update articles when searchText changes
@@ -34,7 +34,7 @@ class ArticleFinder extends Component{
         if(this.state.searchText === prevState.searchText) {
             return
         } else {
-            this.updateArticles()
+            this.fetchNewArticles()
         }
     }
 
