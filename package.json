@@ -1,8 +1,10 @@
 {
   "name": "hooks-demo",
+  "homepage":"https://kdybvig.github.io/HooksDemo/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "gh-pages": "^2.0.1",
     "lorem-ipsum": "^2.0.0",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
@@ -12,6 +14,8 @@
     "recompose": "^0.30.0"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
